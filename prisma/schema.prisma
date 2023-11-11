@@ -16,9 +16,7 @@ model user {
   email      String
   posts      post[]
   comments   comment[]
-  likedPosts post[]
-  post       post?     @relation(fields: [postId], references: [id])
-  postId     String?   @db.Uuid
+  likedPosts post[]    @relation(name: "LikedPosts")
 }
 
 model post {
@@ -31,6 +29,7 @@ model post {
   comments  comment[]
   likedBy   user[]    @relation(name: "LikedPosts")
 }
+
 model comment {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   text      String
